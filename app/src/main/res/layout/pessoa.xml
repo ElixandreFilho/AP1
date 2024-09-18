@@ -9,7 +9,7 @@
         android:id="@+id/tituloTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="Cliente"
         android:textSize="18sp"
         android:textColor="@android:color/black" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/descricaoTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:text="Data"
         android:textSize="16sp"
         android:textColor="@android:color/darker_gray" />
 </LinearLayout>

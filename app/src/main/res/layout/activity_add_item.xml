@@ -6,28 +6,30 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/tituloEditText"
+        android:id="@+id/clienteEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Título" />
+        android:hint="Cliente" />
 
     <EditText
-        android:id="@+id/descricaoEditText"
+        android:id="@+id/dataHoraEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descrição" />
+        android:hint="Data e Horário"
+        android:focusable="false"
+        android:clickable="true" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Salvar Item"
+        android:text="Agendar"
         android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/showListButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mostrar Lista de Itens"
+        android:text="Mostrar Lista de agendamentos"
         android:layout_marginTop="8dp" />
 </LinearLayout>
