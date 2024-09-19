@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,14 +35,13 @@ public class AddItemActivity extends AppCompatActivity {
         dataHoraEditText = findViewById(R.id.dataHoraEditText);
         saveButton = findViewById(R.id.saveButton);
         showItemsButton = findViewById(R.id.showListButton);
-
+        db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "agendamento-database")
+                .fallbackToDestructiveMigration() // Adiciona essa linha para recriar o banco
+                .allowMainThreadQueries()
+                .build();
         // Configura a lista de horários permitidos
         setHorariosPermitidos();
-
-        // Inicializa o banco de dados
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "pessoa-database").allowMainThreadQueries().fallbackToDestructiveMigration().
-                build();
 
         dataHoraEditText.setOnClickListener(v -> showDateTimePicker());
 
@@ -54,14 +54,18 @@ public class AddItemActivity extends AppCompatActivity {
                 return;
             }
 
-            if (!isHorarioDisponivel(dataHora)) {
-                Toast.makeText(AddItemActivity.this, "Horário já ocupado!", Toast.LENGTH_SHORT).show();
-                return;
+//            if (!isHorarioDisponivel(dataHora)) {
+//                Toast.makeText(AddItemActivity.this, "Horário já ocupado!", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+
+            Agendamento novoAgendamento = new Agendamento(cliente, dataHora);
+            db.agendamentoDao().insertAll(novoAgendamento);
+            List<Agendamento> ages = db.agendamentoDao().getAllAgendamentos();
+            Log.d("agendamentos", "agendamenxtos");
+            for (int i = 0; i < ages.size(); i++) {
+                Log.d("Task", "Array element at index " + i + ": " + ages.get(i));
             }
-
-            Agendamento novaPessoa = new Agendamento(cliente, dataHora);
-            db.agendamentoDao().insertAll(novaPessoa);
-
             Toast.makeText(AddItemActivity.this, "Agendamento salvo!", Toast.LENGTH_SHORT).show();
             clienteEditText.setText("");
             dataHoraEditText.setText("");
@@ -92,15 +96,20 @@ public class AddItemActivity extends AppCompatActivity {
             new TimePickerDialog(AddItemActivity.this, (timeView, hourOfDay, minute) -> {
                 String horarioSelecionado = String.format("%02d:00", hourOfDay);  // Sempre usa 00 minutos
 
-                if (horariosPermitidos.contains(horarioSelecionado)) {
-                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    calendar.set(Calendar.MINUTE, 0);  // Sempre define 00 minutos
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, 0);  // Sempre define 00 minutos
 
-                    dataHoraEditText.setText(String.format("%02d/%02d/%04d %02d:00",
-                            dayOfMonth, (monthOfYear + 1), year, hourOfDay));
-                } else {
-                    Toast.makeText(AddItemActivity.this, "Horário inválido. Escolha um horário válido.", Toast.LENGTH_SHORT).show();
-                }
+                dataHoraEditText.setText(String.format("%02d/%02d/%04d %02d:00",
+                        dayOfMonth, (monthOfYear + 1), year, hourOfDay));
+//                if (horariosPermitidos.contains(horarioSelecionado)) {
+//                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                    calendar.set(Calendar.MINUTE, 0);  // Sempre define 00 minutos
+//
+//                    dataHoraEditText.setText(String.format("%02d/%02d/%04d %02d:00",
+//                            dayOfMonth, (monthOfYear + 1), year, hourOfDay));
+//                } else {
+//                    Toast.makeText(AddItemActivity.this, "Horário inválido. Escolha um horário válido.", Toast.LENGTH_SHORT).show();
+//                }
 
             }, currentDate.get(Calendar.HOUR_OF_DAY), 0, true).show();  // Define os minutos como 0
 
@@ -108,18 +117,18 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     // Verifica se o horário está disponível
-    private boolean isHorarioDisponivel(String dataHora) {
-        List<Agendamento> pessoas = db.agendamentoDao().getAllAgendamentos();
-        int count = 0;
-
-        for (Agendamento p : pessoas) {
-            if (p.data.equals(dataHora)) {  // Usa o campo "curso" para armazenar data e hora
-                count++;
-                if (count >= 9) {  // Limite de 9 agendamentos por dia
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    private boolean isHorarioDisponivel(String dataHora) {
+//        List<Agendamento> pessoas = db.agendamentoDao().getAllAgendamentos();
+//        int count = 0;
+//
+//        for (Agendamento p : pessoas) {
+//            if (p.data.equals(dataHora)) {  // Usa o campo "curso" para armazenar data e hora
+//                count++;
+//                if (count >= 9) {  // Limite de 9 agendamentos por dia
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 }

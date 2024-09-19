@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- CardView para exibir o título "AGENDAMENTOS" -->
-    <androidx.cardview.widget.CardView
+    <!-- Imagem de fundo -->
+    <ImageView
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:padding="16dp"
-        android:layout_gravity="center"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/telabarber" />
 
-        <TextView
-            android:layout_width="wrap_content"
+    <!-- Conteúdo principal da tela sobreposto à imagem de fundo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- CardView para exibir o título "AGENDAMENTOS" -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="AGENDAMENTOS"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:layout_gravity="center" />
+            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AGENDAMENTOS"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_gravity="center" />
 
-    <!-- RecyclerView para exibir a lista de agendamentos -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="16dp" />
+        </androidx.cardview.widget.CardView>
 
-    <!-- Botão para criar um novo agendamento -->
-    <Button
-        android:id="@+id/criarNovoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Criar Novo" />
+        <!-- RecyclerView para exibir a lista de agendamentos -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp" />
 
-</LinearLayout>
+        <!-- Botão para criar um novo agendamento -->
+        <Button
+            android:id="@+id/criarNovoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="Criar Novo" />
+
+    </LinearLayout>
+
+</FrameLayout>

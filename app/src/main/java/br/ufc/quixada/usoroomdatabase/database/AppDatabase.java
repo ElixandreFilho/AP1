@@ -8,7 +8,7 @@ import br.ufc.quixada.usoroomdatabase.dao.PessoaDao;
 import br.ufc.quixada.usoroomdatabase.models.Agendamento;
 import br.ufc.quixada.usoroomdatabase.models.Pessoa;
 
-@Database(entities = {Agendamento.class}, version = 2)
+@Database(entities = {Agendamento.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AgendamentoDao agendamentoDao();
 }

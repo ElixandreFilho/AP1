@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.ufc.quixada.usoroomdatabase.models.Agendamento;
-import br.ufc.quixada.usoroomdatabase.models.Pessoa;
 
 public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.PessoaViewHolder> {
 
@@ -23,15 +22,15 @@ public class AgendamentoAdapter extends RecyclerView.Adapter<AgendamentoAdapter.
     @Override
     public PessoaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pessoa, parent, false);
+                .inflate(R.layout.agendamento_item, parent, false);
         return new PessoaViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PessoaViewHolder holder, int position) {
         Agendamento agendamento = agendamentos.get(position);
-        holder.tituloTextView.setText(agendamento.cliente);  // Aqui, troque 'nome' por 'cliente'
-        holder.descricaoTextView.setText(agendamento.data); // Aqui, troque 'curso' por 'data'
+        holder.tituloTextView.setText(agendamento.cliente);
+        holder.descricaoTextView.setText(agendamento.data);
     }
 
     @Override
